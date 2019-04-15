@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="java.sql.*"%>
+
+
+<%
+String name = request.getParameter("name");
+String email = request.getParameter("email");
+String dob = request.getParameter("dob");
+String doctor = request.getParameter("doctor");
+String date = request.getParameter("date");
+String message = request.getParameter("message");
+
+
+String driverName = "com.mysql.jdbc.Driver";
+String connectionUrl = "jdbc:mysql://localhost:3306/";
+String dbName = "db1";
+String userId = "root";
+String password = "root";
+
+try {
+Class.forName(driverName);
+Connection connection = null;
+connection = DriverManager.getConnection(
+connectionUrl + dbName, userId, password);
+Statement statement = null;
+statement = connection.createStatement();
+
+String sql = "insert into detail values('"+ name +"','"+ email + "','" + dob + "','" + doctor + "','" + date + "','"+ message+"')";
+int flage = statement.executeUpdate(sql);
+
+out.println("Appointment Successfully Done");
+}
+
+
+
+catch (Exception e) {
+out.println(e);
+e.printStackTrace();
+}
+%>
